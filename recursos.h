@@ -1,8 +1,7 @@
 #ifndef RECURSOS_H_INCLUDED
 #define RECURSOS_H_INCLUDED
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "memoria.h"
 
 #define QUANTIDADE_SCANNER      1
 #define QUANTIDADE_IMPRESSORA   2
@@ -17,15 +16,6 @@
 
 #define QUANTIDADE_DISPOSITIVOS 4
 
-// Criando a enumeração:
-enum boolean {
-    true = 1, false = 0
-};
-
-// Permitindo a sua declaração como um tipo qualquer:
-typedef  enum boolean  bool;
-
-
 typedef struct recursosDoSistema
 {
     int scanner;
@@ -36,9 +26,9 @@ typedef struct recursosDoSistema
 
 int inicializaRecursos(recursosDoSistema* dispositivo);
 
-void usaRecurso(recursosDoSistema* dispositivo);
+int usaRecurso(recursosDoSistema* dispositivo, bool* usoRecurso);
 
-void liberaRecurso(recursosDoSistema* dispositivo);
+void liberaRecurso(recursosDoSistema* dispositivo, bool* usoRecurso);
 
 
 

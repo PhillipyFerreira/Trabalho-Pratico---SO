@@ -25,7 +25,7 @@ int main ()
         printf("ERRO NA ALOCACAO DOS RECURSOS");
         return 0;
     }
-    if ((usoRecurso = (bool *) malloc (QUANTIDADE_DISPOSITIVO*Ssizeof (bool))) == NULL)
+    if ((usoRecurso = (bool *) malloc (QUANTIDADE_DISPOSITIVOS*sizeof (bool))) == NULL)
     {
         printf("ERRO NO MALLOC");
         return -1;

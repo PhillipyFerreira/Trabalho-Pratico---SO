@@ -17,50 +17,81 @@ int inicializaRecursos(recursosDoSistema* dispositivo)
     return 0;
 }
 
-void usaRecurso(recursosDoSistema* dispositivo, int* usoRecurso)
+int usaRecurso(recursosDoSistema* dispositivo, bool* usoRecurso)
+{
+    bool recursoNaoAlocado = false;
+    for(int i=0; i < QUANTIDADE_DISPOSITIVOS; i++)
+    {
+        if(usoRecurso[i])
+        {
+            switch (i)
+            {
+               case SCANNER:
+                 if(dispositivo->scanner == INDISPONIVEL)
+                 {
+                     recursoNaoAlocado = true;
+                 }
+                 dispositivo->scanner--;
+               break;
+
+               case IMPRESSORA:
+                 if(dispositivo->impressora == INDISPONIVEL)
+                 {
+                     recursoNaoAlocado = true;
+                 }
+                 dispositivo->impressora--;
+               break;
+
+               case MODEM:
+                 if(dispositivo->modem == INDISPONIVEL)
+                 {
+                    recursoNaoAlocado = true;
+                 }
+                 dispositivo->modem--;
+               break;
+
+               case SATA:
+                 if(dispositivo->sata == INDISPONIVEL)
+                 {
+                     recursoNaoAlocado = true;
+                 }
+                 dispositivo->sata--;
+               break;
+            }
+        }
+    }
+    if(recursoNaoAlocado)
+    {
+        liberaRecurso(dispositivo, usoRecurso);
+        return(-1);
+    }
+    return 0;
+}
+
+void liberaRecurso(recursosDoSistema* dispositivo, bool* usoRecurso)
 {
     for(int i=0; i < QUANTIDADE_DISPOSITIVOS; i++)
     {
         if(usoRecurso[i])
         {
-            switch (idRecurso)
+            switch (i)
             {
                case SCANNER:
-                 if(dispositivo->scanner == INDISPONIVEL)
-                 {
-
-                 }
+                 dispositivo->scanner++;
                break;
 
                case IMPRESSORA:
-                 if(dispositivo->scanner == INDISPONIVEL)
-                 {
-
-                 }
+                 dispositivo->impressora++;
                break;
 
                case MODEM:
-                 if(dispositivo->scanner == INDISPONIVEL)
-                 {
-
-                 }
+                 dispositivo->modem++;
                break;
 
                case SATA:
-                 if(dispositivo->scanner == INDISPONIVEL)
-                 {
-
-                 }
+                 dispositivo->sata++;
                break;
-
-               default
-                 Instruções;
             }
         }
     }
-}
-
-void liberaRecurso(recursosDoSistema* dispositivo)
-{
-
 }
