@@ -30,16 +30,16 @@
 1530571144 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\memoria.c
 	"memoria.h"
 
-1530571030 d:\filepy\estudos\unb\2018.1\iso\tp_so\memoria.h
+1530572124 d:\filepy\estudos\unb\2018.1\iso\tp_so\memoria.h
 	<stdio.h>
 	<stdlib.h>
 
-1530571796 d:\filepy\estudos\unb\2018.1\iso\tp_so\recursos.h
+1530572120 d:\filepy\estudos\unb\2018.1\iso\tp_so\recursos.h
 	"memoria.h"
 
-1530510520 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\recursos.c
+1530571796 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\recursos.c
 	"recursos.h"
 
-1530569727 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\processo.c
+1530572027 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\processo.c
 	"processo.h"
 

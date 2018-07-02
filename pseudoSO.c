@@ -3,14 +3,17 @@
 
 int main ()
 {
+    //Declaração de variáveis
 //    InicializaFilaProcessos();
     fila *filaTempoReal;
     fila **filaUsuario;
     memoriaPrincipal *memoria;
     recursosDoSistema *dispositivo;
     tipoProcesso *processo;
+    FILE *process;
 
     //Aloca os recursos dinamicamente
+    {
     if (alocaFilas(&filaTempoReal, &filaUsuario) == ERROR)
     {
         printf("ERRO NA CRIACAO DAS FILAS");
@@ -31,9 +34,9 @@ int main ()
         printf("ERRO AO INICILIZAR UM PROCESSO");
         return 0;
     }
+    }
 
     //Arquivo de entrada de processos
-    FILE *process;
 	process=fopen("processes.txt","r"); /*leitura do arquivo processes.txt*/
 
     //Verifica a integridade do arquivo
@@ -43,13 +46,10 @@ int main ()
         return(1);
     }
 
-	int i, num_processo=1;
-    int k=0;
-    int impressora, scanner, modem, sata;
-    fscanf(process,"%d, %d",&k, &impressora);
-    processo->tempoInit = k;
-//    fscanf(process,"%d, %d, %d, %d, %d, %d, %d, %d\n", &chegada_do_processo, &prioridade, &tempo_de_execucao, &blocos_mem, &impressora, &scanner, &modem, &sata);
-//    fscanf(process,"%d, %d, %d, %d, %d, %d, %d, %d\n", processo->tempoInit, processo->prioridade, processo->tempoProcessador, processo->blocoMemoria, &impressora, &scanner, &modem, &sata);
+    fscanf(process,"%d, %d, %d, %d, %d, %d, %d, %d\n", &processo->tempoInit, &processo->prioridade,
+                   &processo->tempoProcessador, &processo->blocoMemoria, &processo->usoRecurso[IMPRESSORA],
+                   &processo->usoRecurso[SCANNER], &processo->usoRecurso[MODEM], &processo->usoRecurso[SATA]);
+
 //    while( (fscanf(process,"%d, %d, %d, %d, %d, %d, %d, %d\n", processo->tempoInit, processo->prioridade,
 //                   processo->tempoProcessador, processo->blocoMemoria,processo->usoRecurso[IMPRESSORA],
 //                   processo->usoRecurso[SCANNER], processo->usoRecurso[MODEM], processo->usoRecurso[SATA]))!=EOF )
@@ -66,7 +66,7 @@ int main ()
     }
 //	printf("drives: %d\n\n",sata);
 
-//  IMPLEMENTAR
+//  IMPLEMENTAR FREE() DOS MALLOCs
 //    liberaFilas(filaTempoReal, filaUsuario);
 //
     return 0;
