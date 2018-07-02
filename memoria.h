@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 #define TAMANHO_MEMORIA_TEMPO_REAL  960
-#define TAMANHO_MEMORIA_USUARIO     64
+#define TAMANHO_MEMORIA_USUARIO      64
 
 // Criando a enumeração:
 enum boolean {
@@ -17,13 +17,14 @@ typedef  enum boolean  bool;
 
 typedef struct memoriaPrincipal
 {
-    //TAMANHO DA MEMORIA
+    //TAMANHO TOTAL DA MEMORIA DISPONIVEL
     int disponivelReal;
     int disponivelUsuario;
     //ESPACO DE MEMORIA
-    bool *real;
-    bool *usuario;
+    bool *mapaBitsReal;
+    bool *mapaBitsUsuario;
 } memoriaPrincipal;
 
+int inicializarMemoria(memoriaPrincipal *memoria);
 
 #endif

@@ -8,7 +8,7 @@ int main ()
     fila **filaUsuario;
     memoriaPrincipal *memoria;
     recursosDoSistema *dispositivo;
-    bool* usoRecurso;
+    tipoProcesso *processo;
 
     if (alocaFilas(filaTempoReal, filaUsuario) == -1)
     {
@@ -25,22 +25,35 @@ int main ()
         printf("ERRO NA ALOCACAO DOS RECURSOS");
         return 0;
     }
-    if ((usoRecurso = (bool *) malloc (QUANTIDADE_DISPOSITIVOS*sizeof (bool))) == NULL)
+
+    inicializaProcesso(processo);
+    FILE *process;
+
+	process=fopen("processes.txt","r"); /*leitura do arquivo processes.txt*/
+
+	int i, num_processo=1;
+    int k=0;
+    int impressora, scanner, modem, sata;
+
+//    fscanf(process,"%d, %d, %d, %d, %d, %d, %d, %d\n", &chegada_do_processo, &prioridade, &tempo_de_execucao, &blocos_mem, &impressora, &scanner, &modem, &sata);
+    fscanf(process,"%d, %d, %d, %d, %d, %d, %d, %d\n", processo->tempoInit, processo->prioridade, processo->tempoProcessador, processo->blocoMemoria,
+           &impressora, &scanner, &modem, &sata);
+//    while( (fscanf(process,"%d, %d, %d, %d, %d, %d, %d, %d\n", processo->tempoInit, processo->prioridade,
+//                   processo->tempoProcessador, processo->blocoMemoria,processo->usoRecurso[IMPRESSORA],
+//                   processo->usoRecurso[SCANNER], processo->usoRecurso[MODEM], processo->usoRecurso[SATA]))!=EOF )
     {
-        printf("ERRO NO MALLOC");
-        return -1;
+//	printf("dispatcher => \n");
+//	printf("PID: %d\n",num_processo);
+//	printf("offset: \n");
+//	printf("blocks: %d\n", blocos_mem);
+//	printf("priority: %d\n", prioridade);
+//	printf("time: %d\n", tempo_de_execucao);
+//	printf("printers: %d\n",impressora);
+//	printf("scanners: %d\n",scanner);
+//	printf("modems: %d\n",modem);
     }
+//	printf("drives: %d\n\n",sata);
 
-
-    //Lembrar de alocar elemento
-//    inicializacao (sequencia);
-//    inserir (sequencia, sequencia->fim, nome);
-//    inserir (sequencia, sequencia->fim, nome);
-//    exibe (sequencia); /*o primeiro entrado será exibido */
-//    inserir (sequencia, sequencia->fim, nome);
-//    exibe (sequencia); /*o primeiro entrado será exibido */
-//    remover (sequencia); /* exclusão do primeiro elemento entrado */
-//    exibe (sequencia);
 //    liberaFilas(filaTempoReal, filaUsuario);
     return 0;
 }
