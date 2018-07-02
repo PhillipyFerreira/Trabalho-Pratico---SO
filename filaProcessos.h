@@ -5,8 +5,8 @@
 
 #define TAMANHO_FILA_USUARIO 3
 
-int alocaFilas(fila *filaTempoReal, fila **filaUsuario);
+int alocaFilas(fila **filaTempoReal, fila ***filaUsuario);
 
-void liberaFilas(fila *filaTempoReal, fila **filaUsuario);
+void liberaFilas(fila **filaTempoReal, fila **filaUsuario);
 
 #endif

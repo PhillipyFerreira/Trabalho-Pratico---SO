@@ -1,23 +1,23 @@
 #include "recursos.h"
 
-int inicializaRecursos(recursosDoSistema* dispositivo)
+int inicializaRecursos(recursosDoSistema** dispositivo)
 {
     //alocaMemoria
-    if ((dispositivo = (recursosDoSistema *) malloc (sizeof (recursosDoSistema))) == NULL)
+    if (((*dispositivo) = (recursosDoSistema *) malloc (sizeof (recursosDoSistema))) == NULL)
     {
         printf("ERRO NO MALLOC");
         return -1;
     }
     //Inicializa a quantidade de dispositivos disponiveis
-    dispositivo->scanner     = QUANTIDADE_SCANNER;
-    dispositivo->scanner     = QUANTIDADE_SCANNER;
-    dispositivo->impressora  = QUANTIDADE_IMPRESSORA;
-    dispositivo->modem       = QUANTIDADE_MODEM;
-    dispositivo->sata        = QUANTIDADE_SATA;
+    (*dispositivo)->scanner     = QUANTIDADE_SCANNER;
+    (*dispositivo)->scanner     = QUANTIDADE_SCANNER;
+    (*dispositivo)->impressora  = QUANTIDADE_IMPRESSORA;
+    (*dispositivo)->modem       = QUANTIDADE_MODEM;
+    (*dispositivo)->sata        = QUANTIDADE_SATA;
     return 0;
 }
 
-int usaRecurso(recursosDoSistema* dispositivo, bool* usoRecurso)
+int usaRecurso(recursosDoSistema** dispositivo, bool* usoRecurso)
 {
     bool recursoNaoAlocado = false;
     for(int i=0; i < QUANTIDADE_DISPOSITIVOS; i++)
@@ -27,35 +27,35 @@ int usaRecurso(recursosDoSistema* dispositivo, bool* usoRecurso)
             switch (i)
             {
                case SCANNER:
-                 if(dispositivo->scanner == INDISPONIVEL)
+                 if((*dispositivo)->scanner == INDISPONIVEL)
                  {
                      recursoNaoAlocado = true;
                  }
-                 dispositivo->scanner--;
+                 (*dispositivo)->scanner--;
                break;
 
                case IMPRESSORA:
-                 if(dispositivo->impressora == INDISPONIVEL)
+                 if((*dispositivo)->impressora == INDISPONIVEL)
                  {
                      recursoNaoAlocado = true;
                  }
-                 dispositivo->impressora--;
+                 (*dispositivo)->impressora--;
                break;
 
                case MODEM:
-                 if(dispositivo->modem == INDISPONIVEL)
+                 if((*dispositivo)->modem == INDISPONIVEL)
                  {
                     recursoNaoAlocado = true;
                  }
-                 dispositivo->modem--;
+                 (*dispositivo)->modem--;
                break;
 
                case SATA:
-                 if(dispositivo->sata == INDISPONIVEL)
+                 if((*dispositivo)->sata == INDISPONIVEL)
                  {
                      recursoNaoAlocado = true;
                  }
-                 dispositivo->sata--;
+                 (*dispositivo)->sata--;
                break;
             }
         }
@@ -68,7 +68,7 @@ int usaRecurso(recursosDoSistema* dispositivo, bool* usoRecurso)
     return 0;
 }
 
-void liberaRecurso(recursosDoSistema* dispositivo, bool* usoRecurso)
+void liberaRecurso(recursosDoSistema** dispositivo, bool* usoRecurso)
 {
     for(int i=0; i < QUANTIDADE_DISPOSITIVOS; i++)
     {
@@ -77,19 +77,19 @@ void liberaRecurso(recursosDoSistema* dispositivo, bool* usoRecurso)
             switch (i)
             {
                case SCANNER:
-                 dispositivo->scanner++;
+                 (*dispositivo)->scanner++;
                break;
 
                case IMPRESSORA:
-                 dispositivo->impressora++;
+                 (*dispositivo)->impressora++;
                break;
 
                case MODEM:
-                 dispositivo->modem++;
+                 (*dispositivo)->modem++;
                break;
 
                case SATA:
-                 dispositivo->sata++;
+                 (*dispositivo)->sata++;
                break;
             }
         }

@@ -9,10 +9,10 @@
 1530507813 d:\filepy\estudos\unb\2018.1\iso\tp_so\funcaofila.h
 	"processo.h"
 
-1530502814 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\filaprocessos.c
+1530570985 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\filaprocessos.c
 	"filaProcessos.h"
 
-1530502651 d:\filepy\estudos\unb\2018.1\iso\tp_so\filaprocessos.h
+1530570517 d:\filepy\estudos\unb\2018.1\iso\tp_so\filaprocessos.h
 	"funcaoFila.h"
 
 1530495345 d:\filepy\estudos\unb\2018.1\iso\tp_so\bibliotecas.h
@@ -20,26 +20,26 @@
 1530500855 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\funcaofila.c
 	"funcaoFila.h"
 
-1530521544 d:\filepy\estudos\unb\2018.1\iso\tp_so\processo.h
+1530569732 d:\filepy\estudos\unb\2018.1\iso\tp_so\processo.h
 	"recursos.h"
 
-1530521517 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\pseudoso.c
+1530571547 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\pseudoso.c
 	"filaProcessos.h"
 	"memoria.h"
 
-1530516027 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\memoria.c
+1530571144 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\memoria.c
 	"memoria.h"
 
-1530515960 d:\filepy\estudos\unb\2018.1\iso\tp_so\memoria.h
+1530571030 d:\filepy\estudos\unb\2018.1\iso\tp_so\memoria.h
 	<stdio.h>
 	<stdlib.h>
 
-1530514054 d:\filepy\estudos\unb\2018.1\iso\tp_so\recursos.h
+1530571796 d:\filepy\estudos\unb\2018.1\iso\tp_so\recursos.h
 	"memoria.h"
 
 1530510520 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\recursos.c
 	"recursos.h"
 
-1530519691 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\processo.c
+1530569727 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\processo.c
 	"processo.h"
 

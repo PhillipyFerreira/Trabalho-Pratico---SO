@@ -10,10 +10,10 @@ typedef struct tipoProcesso
     int blocoMemoria;
     int inicioMemoria;
     int fimMemoria;
-    int usoRecurso[5];
+    int usoRecurso[QUANTIDADE_DISPOSITIVOS];
 } tipoProcesso;
 
-int inicializaProcesso(tipoProcesso* processo);
+int inicializaProcesso(tipoProcesso** processo);
 
 
 #endif // PROCESSO_H_INCLUDED

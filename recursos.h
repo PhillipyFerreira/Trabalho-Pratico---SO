@@ -28,13 +28,13 @@ typedef struct recursosDoSistema
 }recursosDoSistema;
 
 //Inicializa os recursos do sistema
-int inicializaRecursos(recursosDoSistema* dispositivo);
+int inicializaRecursos(recursosDoSistema** dispositivo);
 
 //Processo verifica e aloca o uso do recurso
-int usaRecurso(recursosDoSistema* dispositivo, bool* usoRecurso);
+int usaRecurso(recursosDoSistema** dispositivo, bool* usoRecurso);
 
 //Processo libera o recurso utilizado
-void liberaRecurso(recursosDoSistema* dispositivo, bool* usoRecurso);
+void liberaRecurso(recursosDoSistema** dispositivo, bool* usoRecurso);
 
 #endif // RECURSOS_H_INCLUDED
 

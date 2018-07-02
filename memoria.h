@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define ERROR        -1
+
 #define TAMANHO_MEMORIA_TEMPO_REAL  960
 #define TAMANHO_MEMORIA_USUARIO      64
 
@@ -25,6 +27,6 @@ typedef struct memoriaPrincipal
     bool *mapaBitsUsuario;
 } memoriaPrincipal;
 
-int inicializarMemoria(memoriaPrincipal *memoria);
+int inicializarMemoria(memoriaPrincipal **memoria);
 
 #endif

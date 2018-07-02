@@ -43,6 +43,9 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="memoria.h" />
+		<Unit filename="processo.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="processo.h" />
 		<Unit filename="pseudoSO.c">
 			<Option compilerVar="CC" />
