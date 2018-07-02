@@ -1,0 +1,43 @@
+# depslib dependency file v1.0
+1530495749 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\fila.c
+	"filaProcessos.h"
+
+1530495523 d:\filepy\estudos\unb\2018.1\iso\tp_so\fila.h
+	<stdio.h>
+	<stdlib.h>
+
+1530507813 d:\filepy\estudos\unb\2018.1\iso\tp_so\funcaofila.h
+	"processo.h"
+
+1530502814 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\filaprocessos.c
+	"filaProcessos.h"
+
+1530502651 d:\filepy\estudos\unb\2018.1\iso\tp_so\filaprocessos.h
+	"funcaoFila.h"
+
+1530495345 d:\filepy\estudos\unb\2018.1\iso\tp_so\bibliotecas.h
+
+1530500855 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\funcaofila.c
+	"funcaoFila.h"
+
+1530502841 d:\filepy\estudos\unb\2018.1\iso\tp_so\processo.h
+	"recursos.h"
+
+1530508094 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\pseudoso.c
+	"filaProcessos.h"
+	"memoria.h"
+
+1530500659 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\memoria.c
+	"memoria.h"
+
+1530507867 d:\filepy\estudos\unb\2018.1\iso\tp_so\memoria.h
+	<stdio.h>
+	<stdlib.h>
+
+1530509071 d:\filepy\estudos\unb\2018.1\iso\tp_so\recursos.h
+	<stdio.h>
+	<stdlib.h>
+
+1530507977 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\recursos.c
+	"recursos.h"
+
