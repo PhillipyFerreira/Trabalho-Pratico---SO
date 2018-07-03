@@ -22,6 +22,12 @@ typedef struct fsSC{
 	int blocks;
 } fsSC;
 
+typedef struct fsevent{
+    int code;
+	int seek;
+	int blocks;
+} fsevent;
+
 int createFS(fileSystem**, int);
 int formatFS(fileSystem**);
 int printFS(fileSystem*);
@@ -32,7 +38,11 @@ int writeFS(fileSystem**, FILE*);
 #define CREATE_OP 0
 #define DELETE_OP 1
 
+#define FILE_CREATED 1
+#define OUT_OF_SPACE -10
+
 int processFSSystemCalls(tipoProcesso*, fileSystem**, FILE*);
 int deleteAllowed(tipoProcesso*, char);
-int createFile(fileSystem**, char, int);
+fsevent createFile(fileSystem**, char, int);
+int writeFile(fileSystem**, char, int, int);
 int deleteFile(fileSystem**, char);

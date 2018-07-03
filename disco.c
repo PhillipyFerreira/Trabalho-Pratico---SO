@@ -10,12 +10,14 @@ int main (void){
 
 	initFS(&fs, fsFile);
 
-	printFS(fs);
+	//printFS(fs);
 
+	printf("\nSistema de arquivos =>\n");
 	processFSSystemCalls(NULL, &fs, fsFile);
 
 	printf("\nMapa de ocupação do disco:\n\n");
 	printFS(fs);
+	printf("\n");
 	
 	return 0;
 }
@@ -75,9 +77,7 @@ int loadFS(fileSystem **fs, FILE* fsFile){
 			printf("ERRO AO LER O ARQUIVO %d\n", i+1);
 			return ERROR;
 		}
-		for(int j = 0; j < f->blocks; j++)
-			(*fs)->disc[f->seek + j] = f->name;
-		
+		writeFile(fs, f->name, f->seek, f->blocks);		
 		//printf("%c, %d, %d\n", f->name, f->seek, f->blocks);
 	}
 	//printf("CARREGADO...\n");
@@ -100,12 +100,23 @@ int printFS(fileSystem* fs){
 
 int processFSSystemCalls(tipoProcesso* processes, fileSystem **fs, FILE* fsFile){
 	int allowed, scId = 0;
+	fsevent e;
 	fsSC *sc = malloc(sizeof(fsSC));
 	while(fscanf(fsFile,"%d, %d, %c, %d\n", &sc->pid, &sc->op, &sc->name, &sc->blocks) != EOF){
 		scId++;
 		switch(sc->op){
 			case CREATE_OP:
-				createFile(fs, sc->name, sc->blocks);
+				e = createFile(fs, sc->name, sc->blocks);
+				switch(e.code){
+					case FILE_CREATED:
+						printf("Operação %d => Sucesso\nO processo '%d' criou o arquivo %c. (blocos %d a %d)\n", scId, sc->pid, sc->name, e.seek, (e.seek + e.blocks - 1));
+						break;
+					case OUT_OF_SPACE:
+						printf("Operação %d => Falha\nO processo '%d' não criar o arquivo %c (falta de espaço)\n", scId, sc->pid, sc->name);
+						break;	
+					default:
+						printf("NÃO ESPERADO");	
+				}
 				break;
 			case DELETE_OP:
 				allowed = deleteAllowed(processes, sc->name);
@@ -115,6 +126,7 @@ int processFSSystemCalls(tipoProcesso* processes, fileSystem **fs, FILE* fsFile)
 				}
 				if(allowed == 1){
 					deleteFile(fs, sc->name);
+					printf("Operação %d => Sucesso\nO processo '%d' deletou o arquivo %c.\n", scId, sc->pid, sc->name);
 				}else{
 					printf("Operação %d => Falha\nO processo '%d' não tem permissão pra apagar o arquivo %c.\n", scId, sc->pid, sc->name);
 				}
@@ -122,12 +134,46 @@ int processFSSystemCalls(tipoProcesso* processes, fileSystem **fs, FILE* fsFile)
 			default:
 				printf("OPERAÇÃO INVÁLIDA");		
 		}
-		//printf("%d, %d, %c, %d\n", sc->pid, sc->op, sc->name, sc->blocks);
+		printf("\n");
 	}
 }
 
-int createFile(fileSystem **fs, char file, int size){
+fsevent createFile(fileSystem **fs, char file, int blocks){
+	bool find = false;
+	int initFree = 0;
+	int free = 0;
+	fsevent *event = malloc(sizeof(fsevent));
 
+	for(int i = 0; i < (*fs)->blocks; i++){
+		if((*fs)->disc[i] == '0'){
+			free++;
+			if(!find){
+				find = true;
+				initFree = i;
+			}
+			if(free == blocks){
+				writeFile(fs, file, initFree, blocks);
+				event->code = FILE_CREATED;
+				event->seek = initFree;
+				event->blocks = blocks;
+				break;
+			}
+		}else{
+			find = false;
+			free = 0;
+		}	
+	}
+
+	if(event->code != FILE_CREATED){
+		event->code = OUT_OF_SPACE;
+	}
+
+	return *event;
+}
+
+int writeFile(fileSystem **fs, char file, int seek, int blocks){
+	for(int j = 0; j < blocks; j++)
+			(*fs)->disc[seek + j] = file;
 }
 
 int deleteAllowed(tipoProcesso* processes, char file){
