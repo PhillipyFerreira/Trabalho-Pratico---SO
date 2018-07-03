@@ -23,7 +23,7 @@ void inicializacao (fila ** sequencia);
 int inserir (fila **sequencia, tipoProcesso *processo);
 
 /* remover (remover) um elemento de la fila */
-int remover (fila * sequencia);
+int remover (fila ** sequencia);
 
 /* exibição da fila */
 void exibe(fila *sequencia);

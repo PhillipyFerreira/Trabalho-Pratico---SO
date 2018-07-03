@@ -4,6 +4,7 @@
 
 typedef struct tipoProcesso
 {
+    int PID;
     int tempoInit;
     int prioridade;
     int tempoProcessador;
