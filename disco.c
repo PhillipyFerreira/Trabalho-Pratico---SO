@@ -12,7 +12,10 @@ int main (void){
 
 	printFS(fs);
 
-	processFSOps(&fs, fsFile);
+	processFSSystemCalls(NULL, &fs, fsFile);
+
+	printf("\nMapa de ocupação do disco:\n\n");
+	printFS(fs);
 	
 	return 0;
 }
@@ -48,7 +51,7 @@ int initFS(fileSystem **fs, FILE* fsFile){
 	//printf("BLOCOS: %d\n", (*fs)->blocks);
 	formatFS(fs);
 
-	printFS(*fs);
+	//printFS(*fs);
 
 	loadFS(fs, fsFile);
 }
@@ -88,14 +91,6 @@ int loadFS(fileSystem **fs, FILE* fsFile){
 
 }
 
-int writeFile(fileSystem **fs, char file, int size){
-
-}
-
-int deleteFile(fileSystem **fs, char file){
-
-}
-
 int printFS(fileSystem* fs){
 	for(int i = 0; i < fs->blocks; i++)
 		printf("%c ", fs->disc[i]);	
@@ -103,6 +98,51 @@ int printFS(fileSystem* fs){
 	return 0;
 }
 
-int processFSOps(fileSystem **fs, FILE* fsFile){
+int processFSSystemCalls(tipoProcesso* processes, fileSystem **fs, FILE* fsFile){
+	int allowed, scId = 0;
+	fsSC *sc = malloc(sizeof(fsSC));
+	while(fscanf(fsFile,"%d, %d, %c, %d\n", &sc->pid, &sc->op, &sc->name, &sc->blocks) != EOF){
+		scId++;
+		switch(sc->op){
+			case CREATE_OP:
+				createFile(fs, sc->name, sc->blocks);
+				break;
+			case DELETE_OP:
+				allowed = deleteAllowed(processes, sc->name);
+				if(allowed == ERROR){
+					printf("OPERAÇÃO VERIFICAR A PERMISSÃO");
+					return -1;
+				}
+				if(allowed == 1){
+					deleteFile(fs, sc->name);
+				}else{
+					printf("Operação %d => Falha\nO processo '%d' não tem permissão pra apagar o arquivo %c.\n", scId, sc->pid, sc->name);
+				}
+				break;
+			default:
+				printf("OPERAÇÃO INVÁLIDA");		
+		}
+		//printf("%d, %d, %c, %d\n", sc->pid, sc->op, sc->name, sc->blocks);
+	}
+}
 
+int createFile(fileSystem **fs, char file, int size){
+
+}
+
+int deleteAllowed(tipoProcesso* processes, char file){
+	return 1;
+}
+
+int deleteFile(fileSystem **fs, char file){
+	bool find;
+	for(int i = 0; i < (*fs)->blocks; i++){
+		if((*fs)->disc[i] == file){
+			find = true;
+			(*fs)->disc[i] = '0';
+			continue;
+		}
+		if(find)
+			break;
+	}	
 }
