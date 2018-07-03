@@ -2,7 +2,7 @@
 
 int alocaFilas(fila **filaTempoReal, fila ***filaUsuario)
 {
-    static int numeroTotalProcessos = 0;
+
         //Aloca recursos Fila Tempo real
     if ((*filaTempoReal = (fila *) malloc (sizeof (fila))) == NULL)
     {

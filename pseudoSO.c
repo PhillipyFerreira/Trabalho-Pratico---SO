@@ -1,4 +1,5 @@
 #include "filaProcessos.h"
+#include "escalonaProcessos.h"
 #include "memoria.h"
 #include "disco.h"
 
@@ -13,6 +14,8 @@ int main ()
     recursosDoSistema *dispositivo;
     tipoProcesso *processo;
     FILE *process;
+    int clock = 0;
+    bool existeProcessos=true;
 
     //Aloca os recursos dinamicamente
     {
@@ -57,22 +60,31 @@ int main ()
                     &processo->usoRecurso[SCANNER], &processo->usoRecurso[MODEM], &processo->usoRecurso[SATA])) != EOF)
     {
         if( processo->prioridade == FILA_TEMPO_REAL )
-            f = filaTempoReal;
+        {
+            inserir(&filaTempoReal, processo);
+        }
         else
-            f = filaUsuario[processo->prioridade];
-
-        inserir(&f, processo);
-        printf("tempoInit: %d\nprioridade: %d\ntempoProcessador: %d\nblocoMemoria: %d\nImp: %d\nscn: %d\nmod: %d\nsata: %d\n\n", processo->tempoInit, processo->prioridade,
-           processo->tempoProcessador, processo->blocoMemoria, processo->usoRecurso[IMPRESSORA],
-           processo->usoRecurso[SCANNER], processo->usoRecurso[MODEM], processo->usoRecurso[SATA]);
+        {
+            inserir(&filaUsuario[processo->prioridade], processo);
+        }
     }
-
 
     inicializaFileSystem(NULL, "files.txt");
 
-//    while( (fscanf(process,"%d, %d, %d, %d, %d, %d, %d, %d\n", processo->tempoInit, processo->prioridade,
-//                   processo->tempoProcessador, processo->blocoMemoria,processo->usoRecurso[IMPRESSORA],
-//                   processo->usoRecurso[SCANNER], processo->usoRecurso[MODEM], processo->usoRecurso[SATA]))!=EOF )
+    while(existeProcessos)
+    {
+        printf("FILA NO TEMPO %d \n\n", clock);
+        exibe(filaTempoReal);
+        existeProcessos = executaFila(&filaTempoReal, clock, &memoria);
+//        while(executaFila(&filaTempoReal, clock, &memoria));
+//        while(executaFilaUsuario(&filaUsuario, clock, &memoria));
+//        if((vazia(filaTempoReal) && vazia(filaUsuario[FILA_PRIORIDADE1]) && vazia(filaUsuario[FILA_PRIORIDADE2]) & vazia(filaUsuario[FILA_PRIORIDADE3])))
+//        {
+//            existeProcessos=false;
+//        }
+        clock ++;
+        system("pause");
+    }
     {
 //	printf("dispatcher => \n");
 //	printf("PID: %d\n",num_processo);
