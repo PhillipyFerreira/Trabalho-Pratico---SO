@@ -8,13 +8,12 @@ typedef struct file{
 	char name;
 	int seek;
 	int blocks;
-	int ownerPID;
 } file;
 
 typedef struct fileSystem{
 	int blocks;
 	char *disc;
-	file *files;
+	int ownerPID[1000];
 } fileSystem;
 
 typedef struct fsSC{
@@ -45,8 +44,8 @@ int writeFS(fileSystem**, FILE*);
 
 int processFSSystemCalls(int*, fileSystem**, FILE*);
 int deleteAllowed(fileSystem*, int*, int, char);
-fsevent createFile(fileSystem**, char, int);
-int writeFile(fileSystem**, char, int, int);
+fsevent createFile(fileSystem**, int, char, int);
+int writeFile(fileSystem**, int, char, int, int);
 int deleteFile(fileSystem**, char);
 
 int inicializaFileSystem (int*, const char*);

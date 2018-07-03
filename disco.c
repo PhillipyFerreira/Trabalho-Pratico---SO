@@ -19,6 +19,8 @@ int inicializaFileSystem (int* processes, const char* fsFileName){
 	printFS(fs);
 	printf("\n");
 
+	//writeFS(&fs, fsFile);
+
 	return 0;
 }
 
@@ -79,7 +81,7 @@ int loadFS(fileSystem **fs, FILE* fsFile){
 			printf("ERRO AO LER O ARQUIVO %d\n", i+1);
 			return ERROR;
 		}
-		writeFile(fs, f->name, f->seek, f->blocks);
+		writeFile(fs, 0, f->name, f->seek, f->blocks);
 	}
 
     return  0;
@@ -101,7 +103,7 @@ int processFSSystemCalls(int* processes, fileSystem **fs, FILE* fsFile){
 		if(processes[sc->pid] != -1)
 			switch(sc->op){
 				case CREATE_OP:
-					e = createFile(fs, sc->name, sc->blocks);
+					e = createFile(fs, sc->pid, sc->name, sc->blocks);
 					switch(e.code){
 						case FILE_CREATED:
 							printf("Operação %d => Sucesso\nO processo '%d' criou o arquivo %c. (blocos %d a %d)\n", scId, sc->pid, sc->name, e.seek, (e.seek + e.blocks - 1));
@@ -114,7 +116,7 @@ int processFSSystemCalls(int* processes, fileSystem **fs, FILE* fsFile){
 					}
 					break;
 				case DELETE_OP:
-					allowed = deleteAllowed(fs, processes, sc->pid, sc->name);
+					allowed = deleteAllowed(*fs, processes, sc->pid, sc->name);
 					if(allowed == ERROR){
 						printf("OPERAÇÃO VERIFICAR A PERMISSÃO");
 						return -1;
@@ -130,14 +132,14 @@ int processFSSystemCalls(int* processes, fileSystem **fs, FILE* fsFile){
 					printf("OPERAÇÃO INVÁLIDA");
 			}
 		else{
-			printf("Operação %d => Falha\nNão existe o processo %d.\n", scId, sc->pid, sc->name);
-		}	
+			printf("Operação %d => Falha\nNão existe o processo %d.\n", scId, sc->pid);
+		}
 		printf("\n");
 	}
 	return 0;
 }
 
-fsevent createFile(fileSystem **fs, char file, int blocks){
+fsevent createFile(fileSystem **fs, int PID, char file, int blocks){
 	bool find = false;
 	int initFree = 0;
 	int free = 0;
@@ -151,7 +153,7 @@ fsevent createFile(fileSystem **fs, char file, int blocks){
 				initFree = i;
 			}
 			if(free == blocks){
-				writeFile(fs, file, initFree, blocks);
+				writeFile(fs, PID, file, initFree, blocks);
 				event->code = FILE_CREATED;
 				event->seek = initFree;
 				event->blocks = blocks;
@@ -170,14 +172,19 @@ fsevent createFile(fileSystem **fs, char file, int blocks){
 	return *event;
 }
 
-int writeFile(fileSystem **fs, char file, int seek, int blocks){
+int writeFile(fileSystem **fs, int PID, char file, int seek, int blocks){
 	for(int j = 0; j < blocks; j++)
 			(*fs)->disc[seek + j] = file;
+	(*fs)->ownerPID[(int) file] = PID;
 	return 0;
 }
 
 int deleteAllowed(fileSystem *fs, int* processes, int PID, char file){
-	return processes[PID] == FILA_TEMPO_REAL ? 1 : 0;
+	if(processes[PID] == FILA_TEMPO_REAL)
+		return 1;
+	if(fs->ownerPID[(int) file] == PID)
+		return 1;
+	return 0;
 }
 
 int deleteFile(fileSystem **fs, char file){
@@ -186,10 +193,10 @@ int deleteFile(fileSystem **fs, char file){
 		if((*fs)->disc[i] == file){
 			find = true;
 			(*fs)->disc[i] = '0';
-			continue;
+			//continue;
 		}
-		if(find)
-			break;
+		// if(find)
+		// 	break;
 	}
 	return 0;
 }
