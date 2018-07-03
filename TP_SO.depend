@@ -50,3 +50,56 @@
 1530652255 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\escalonaprocessos.c
 	"escalonaProcessos.h"
 
+1530653679 source:/desenv/workspaces/unb/c/Trabalho-Pratico---SO/disco.c
+	<stdio.h>
+	<stdlib.h>
+	"disco.h"
+
+1530653197 /desenv/workspaces/unb/c/Trabalho-Pratico---SO/disco.h
+	<stdio.h>
+	<stdlib.h>
+	"processo.h"
+
+1530653465 /desenv/workspaces/unb/c/Trabalho-Pratico---SO/processo.h
+	"recursos.h"
+
+1530579243 /desenv/workspaces/unb/c/Trabalho-Pratico---SO/recursos.h
+	"memoria.h"
+
+1530579243 /desenv/workspaces/unb/c/Trabalho-Pratico---SO/memoria.h
+	<stdio.h>
+	<stdlib.h>
+
+1530579243 source:/desenv/workspaces/unb/c/Trabalho-Pratico---SO/memoria.c
+	"memoria.h"
+
+1530579243 source:/desenv/workspaces/unb/c/Trabalho-Pratico---SO/processo.c
+	"processo.h"
+
+1530579243 source:/desenv/workspaces/unb/c/Trabalho-Pratico---SO/recursos.c
+	"recursos.h"
+
+1530653436 source:/desenv/workspaces/unb/c/Trabalho-Pratico---SO/filaProcessos.c
+	"filaProcessos.h"
+
+1530581881 /desenv/workspaces/unb/c/Trabalho-Pratico---SO/filaProcessos.h
+	"funcaoFila.h"
+
+1530653436 /desenv/workspaces/unb/c/Trabalho-Pratico---SO/funcaoFila.h
+	"processo.h"
+
+1530653436 source:/desenv/workspaces/unb/c/Trabalho-Pratico---SO/funcaoFila.c
+	"funcaoFila.h"
+
+1530653491 source:/desenv/workspaces/unb/c/Trabalho-Pratico---SO/pseudoSO.c
+	"filaProcessos.h"
+	"escalonaProcessos.h"
+	"memoria.h"
+	"disco.h"
+
+1530653436 /desenv/workspaces/unb/c/Trabalho-Pratico---SO/escalonaProcessos.h
+	"filaProcessos.h"
+
+1530653436 source:/desenv/workspaces/unb/c/Trabalho-Pratico---SO/escalonaProcessos.c
+	"escalonaProcessos.h"
+

@@ -4,7 +4,6 @@
 
 int inicializaFileSystem (tipoProcesso* processes, const char* fsFileName){
 
-	int blocks = 10;
 	fileSystem *fs = NULL;
 	FILE *fsFile = fopen(fsFileName,"r");
 
@@ -18,7 +17,7 @@ int inicializaFileSystem (tipoProcesso* processes, const char* fsFileName){
 	printf("\nMapa de ocupação do disco:\n\n");
 	printFS(fs);
 	printf("\n");
-	
+
 	return 0;
 }
 
@@ -35,8 +34,8 @@ int formatFS(fileSystem **fs){
 	//printf("FORMATANDO FS\n");
 	for(int i = 0; i < (*fs)->blocks; i++)
 		(*fs)->disc[i] = '0';
-	//printf("FORMATADO FS\n");	
-	return 0;	
+	//printf("FORMATADO FS\n");
+	return 0;
 }
 
 int initFS(fileSystem **fs, FILE* fsFile){
@@ -48,7 +47,7 @@ int initFS(fileSystem **fs, FILE* fsFile){
 	}
 
 	//printf("BLOCOS: %d\n", blocks);
-    
+
 	createFS(fs, blocks);
 	//printf("BLOCOS: %d\n", (*fs)->blocks);
 	formatFS(fs);
@@ -56,6 +55,8 @@ int initFS(fileSystem **fs, FILE* fsFile){
 	//printFS(*fs);
 
 	loadFS(fs, fsFile);
+
+	return 0;
 }
 
 int loadFS(fileSystem **fs, FILE* fsFile){
@@ -77,24 +78,16 @@ int loadFS(fileSystem **fs, FILE* fsFile){
 			printf("ERRO AO LER O ARQUIVO %d\n", i+1);
 			return ERROR;
 		}
-		writeFile(fs, f->name, f->seek, f->blocks);		
-		//printf("%c, %d, %d\n", f->name, f->seek, f->blocks);
+		writeFile(fs, f->name, f->seek, f->blocks);
 	}
-	//printf("CARREGADO...\n");
 
-	/*printf("VERIFICANDO...\n");
-	for(int i = 0; i < numFiles; i++){
-		file *f = &files[i];
-		printf("%c, %d, %d\n", f->name, f->seek, f->blocks);
-	}
-	printf("VERIFICADO...\n");*/
-
+    return  0;
 }
 
 int printFS(fileSystem* fs){
 	for(int i = 0; i < fs->blocks; i++)
-		printf("%c ", fs->disc[i]);	
-	printf("\n");	
+		printf("%c ", fs->disc[i]);
+	printf("\n");
 	return 0;
 }
 
@@ -113,9 +106,9 @@ int processFSSystemCalls(tipoProcesso* processes, fileSystem **fs, FILE* fsFile)
 						break;
 					case OUT_OF_SPACE:
 						printf("Operação %d => Falha\nO processo '%d' não criar o arquivo %c (falta de espaço)\n", scId, sc->pid, sc->name);
-						break;	
+						break;
 					default:
-						printf("NÃO ESPERADO");	
+						printf("NÃO ESPERADO");
 				}
 				break;
 			case DELETE_OP:
@@ -132,10 +125,11 @@ int processFSSystemCalls(tipoProcesso* processes, fileSystem **fs, FILE* fsFile)
 				}
 				break;
 			default:
-				printf("OPERAÇÃO INVÁLIDA");		
+				printf("OPERAÇÃO INVÁLIDA");
 		}
 		printf("\n");
 	}
+	return 0;
 }
 
 fsevent createFile(fileSystem **fs, char file, int blocks){
@@ -161,7 +155,7 @@ fsevent createFile(fileSystem **fs, char file, int blocks){
 		}else{
 			find = false;
 			free = 0;
-		}	
+		}
 	}
 
 	if(event->code != FILE_CREATED){
@@ -174,6 +168,7 @@ fsevent createFile(fileSystem **fs, char file, int blocks){
 int writeFile(fileSystem **fs, char file, int seek, int blocks){
 	for(int j = 0; j < blocks; j++)
 			(*fs)->disc[seek + j] = file;
+	return 0;
 }
 
 int deleteAllowed(tipoProcesso* processes, char file){
@@ -190,5 +185,6 @@ int deleteFile(fileSystem **fs, char file){
 		}
 		if(find)
 			break;
-	}	
+	}
+	return 0;
 }
