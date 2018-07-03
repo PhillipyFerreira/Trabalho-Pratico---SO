@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include "disco.h"
 
-int main (void){
+int inicializaFileSystem (tipoProcesso* processes, const char* fsFileName){
 
 	int blocks = 10;
 	fileSystem *fs = NULL;
-	FILE *fsFile = fopen("files.txt","r");
+	FILE *fsFile = fopen(fsFileName,"r");
 
 	initFS(&fs, fsFile);
 

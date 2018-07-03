@@ -1,9 +1,10 @@
 #include "filaProcessos.h"
 #include "memoria.h"
+#include "disco.h"
 
 int main ()
 {
-    //Declaração de variáveis
+    //Declaraï¿½ï¿½o de variï¿½veis
 //    InicializaFilaProcessos();
     fila *f;
     fila *filaTempoReal;
@@ -65,6 +66,9 @@ int main ()
            processo->tempoProcessador, processo->blocoMemoria, processo->usoRecurso[IMPRESSORA],
            processo->usoRecurso[SCANNER], processo->usoRecurso[MODEM], processo->usoRecurso[SATA]);
     }
+
+
+    inicializaFileSystem(NULL, "files.txt");
 
 //    while( (fscanf(process,"%d, %d, %d, %d, %d, %d, %d, %d\n", processo->tempoInit, processo->prioridade,
 //                   processo->tempoProcessador, processo->blocoMemoria,processo->usoRecurso[IMPRESSORA],

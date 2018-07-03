@@ -46,3 +46,5 @@ int deleteAllowed(tipoProcesso*, char);
 fsevent createFile(fileSystem**, char, int);
 int writeFile(fileSystem**, char, int, int);
 int deleteFile(fileSystem**, char);
+
+int inicializaFileSystem (tipoProcesso*, const char*);
