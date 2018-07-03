@@ -6,24 +6,24 @@
 	<stdio.h>
 	<stdlib.h>
 
-1530507813 d:\filepy\estudos\unb\2018.1\iso\tp_so\funcaofila.h
+1530580154 d:\filepy\estudos\unb\2018.1\iso\tp_so\funcaofila.h
 	"processo.h"
 
 1530570985 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\filaprocessos.c
 	"filaProcessos.h"
 
-1530570517 d:\filepy\estudos\unb\2018.1\iso\tp_so\filaprocessos.h
+1530577518 d:\filepy\estudos\unb\2018.1\iso\tp_so\filaprocessos.h
 	"funcaoFila.h"
 
 1530495345 d:\filepy\estudos\unb\2018.1\iso\tp_so\bibliotecas.h
 
-1530500855 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\funcaofila.c
+1530580638 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\funcaofila.c
 	"funcaoFila.h"
 
 1530569732 d:\filepy\estudos\unb\2018.1\iso\tp_so\processo.h
 	"recursos.h"
 
-1530571547 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\pseudoso.c
+1530580804 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\pseudoso.c
 	"filaProcessos.h"
 	"memoria.h"
 

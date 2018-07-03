@@ -19,6 +19,10 @@ int main ()
         printf("ERRO NA CRIACAO DAS FILAS");
         return 0;
     }
+    inicializacao(&filaTempoReal);
+    inicializacao(&filaUsuario[FILA_PRIORIDADE1]);
+    inicializacao(&filaUsuario[FILA_PRIORIDADE2]);
+    inicializacao(&filaUsuario[FILA_PRIORIDADE3]);
     if(inicializarMemoria(&memoria) == ERROR)
     {
         printf("ERRO NA ALOCACAO DA MEMORIA PRINCIPAL");
@@ -46,9 +50,45 @@ int main ()
         return(1);
     }
 
-    fscanf(process,"%d, %d, %d, %d, %d, %d, %d, %d\n", &processo->tempoInit, &processo->prioridade,
-                   &processo->tempoProcessador, &processo->blocoMemoria, &processo->usoRecurso[IMPRESSORA],
-                   &processo->usoRecurso[SCANNER], &processo->usoRecurso[MODEM], &processo->usoRecurso[SATA]);
+    while((fscanf(process,"%d, %d, %d, %d, %d, %d, %d, %d\n", &processo->tempoInit, &processo->prioridade,
+                    &processo->tempoProcessador, &processo->blocoMemoria, &processo->usoRecurso[IMPRESSORA],
+                    &processo->usoRecurso[SCANNER], &processo->usoRecurso[MODEM], &processo->usoRecurso[SATA])) != EOF)
+    {
+        switch(processo->prioridade)
+        {
+           case FILA_TEMPO_REAL:
+               inserir(&filaTempoReal, processo);
+               printf("%d, %d, %d, %d, %d, %d, %d, %d\n", filaTempoReal->fim->processo->tempoInit, filaTempoReal->fim->processo->prioridade,
+                   filaTempoReal->fim->processo->tempoProcessador, filaTempoReal->fim->processo->blocoMemoria, filaTempoReal->fim->processo->usoRecurso[IMPRESSORA],
+                   filaTempoReal->fim->processo->usoRecurso[SCANNER], filaTempoReal->fim->processo->usoRecurso[MODEM], filaTempoReal->fim->processo->usoRecurso[SATA]);
+           break;
+
+           case FILA_PRIORIDADE1:
+               inserir(&filaUsuario[FILA_PRIORIDADE1], processo);
+               printf("%d, %d, %d, %d, %d, %d, %d, %d\n", filaUsuario[FILA_PRIORIDADE1]->fim->processo->tempoInit, filaUsuario[FILA_PRIORIDADE1]->fim->processo->prioridade,
+                   filaUsuario[FILA_PRIORIDADE1]->fim->processo->tempoProcessador, filaUsuario[FILA_PRIORIDADE1]->fim->processo->blocoMemoria, filaUsuario[FILA_PRIORIDADE1]->fim->processo->usoRecurso[IMPRESSORA],
+                   filaUsuario[FILA_PRIORIDADE1]->fim->processo->usoRecurso[SCANNER], filaUsuario[FILA_PRIORIDADE1]->fim->processo->usoRecurso[MODEM], filaUsuario[FILA_PRIORIDADE1]->fim->processo->usoRecurso[SATA]);
+           break;
+
+           case FILA_PRIORIDADE2:
+               inserir(&filaUsuario[FILA_PRIORIDADE2], processo);
+               printf("%d, %d, %d, %d, %d, %d, %d, %d\n", filaUsuario[FILA_PRIORIDADE2]->fim->processo->tempoInit, filaUsuario[FILA_PRIORIDADE2]->fim->processo->prioridade,
+                   filaUsuario[FILA_PRIORIDADE2]->fim->processo->tempoProcessador, filaUsuario[FILA_PRIORIDADE2]->fim->processo->blocoMemoria, filaUsuario[FILA_PRIORIDADE2]->fim->processo->usoRecurso[IMPRESSORA],
+                   filaUsuario[FILA_PRIORIDADE2]->fim->processo->usoRecurso[SCANNER], filaUsuario[FILA_PRIORIDADE2]->fim->processo->usoRecurso[MODEM], filaUsuario[FILA_PRIORIDADE2]->fim->processo->usoRecurso[SATA]);
+           break;
+
+           case FILA_PRIORIDADE3:
+               inserir(&filaUsuario[FILA_PRIORIDADE3], processo);
+               printf("%d, %d, %d, %d, %d, %d, %d, %d\n", filaUsuario[FILA_PRIORIDADE3]->fim->processo->tempoInit, filaUsuario[FILA_PRIORIDADE3]->fim->processo->prioridade,
+                   filaUsuario[FILA_PRIORIDADE3]->fim->processo->tempoProcessador, filaUsuario[FILA_PRIORIDADE3]->fim->processo->blocoMemoria, filaUsuario[FILA_PRIORIDADE3]->fim->processo->usoRecurso[IMPRESSORA],
+                   filaUsuario[FILA_PRIORIDADE3]->fim->processo->usoRecurso[SCANNER], filaUsuario[FILA_PRIORIDADE3]->fim->processo->usoRecurso[MODEM], filaUsuario[FILA_PRIORIDADE3]->fim->processo->usoRecurso[SATA]);
+           break;
+
+           default:
+               printf("PRIORIDADE NÃO EXISTENTE\n");
+            break;
+        }
+    }
 
 //    while( (fscanf(process,"%d, %d, %d, %d, %d, %d, %d, %d\n", processo->tempoInit, processo->prioridade,
 //                   processo->tempoProcessador, processo->blocoMemoria,processo->usoRecurso[IMPRESSORA],
@@ -66,7 +106,7 @@ int main ()
     }
 //	printf("drives: %d\n\n",sata);
 
-//  IMPLEMENTAR FREE() DOS MALLOCs
+//  IMPLEMENTAR FREE() DOS MALLOCs,m
 //    liberaFilas(filaTempoReal, filaUsuario);
 //
     return 0;

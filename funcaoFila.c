@@ -1,15 +1,15 @@
 #include "funcaoFila.h"
 
 /* Inicializa a fila  */
-void inicializacao (fila * sequencia)
+void inicializacao (fila ** sequencia)
 {
-    sequencia->inicio = NULL;
-    sequencia->fim = NULL;
-    sequencia->tamanho = 0;
+    (*sequencia)->inicio = NULL;
+    (*sequencia)->fim = NULL;
+    (*sequencia)->tamanho = 0;
 }
 
 /* inserir (adicionar) um elemento na fila */
-int inserir (fila * sequencia, elemento * ElementoFim, char *dado)
+int inserir (fila **sequencia, tipoProcesso *processo)
 {
     //Aloca recurso para o novo elemento
     elemento *novo_elemento;
@@ -25,25 +25,27 @@ int inserir (fila * sequencia, elemento * ElementoFim, char *dado)
         return -1;
     }
 
-    //Se a lista esta vazia
-    if(ElementoFim == NULL)
+    //Seta o processo recebido como aprametro para o novo elemento da lista
+    novo_elemento->processo =   processo;
+
+    // Se a lista esta vazia
+    if((*sequencia)->fim == NULL)
     {
-        //Verifica se a lista realmente estah vazia
-        if(sequencia->tamanho == 0)
-        {
-            sequencia->fim = novo_elemento;
-            sequencia-> inicio = novo_elemento;
-            novo_elemento->seguinte = NULL;
-        }
+        // Insere o novo elemento na lista e ajusta os ponteiros
+        (*sequencia)->fim = novo_elemento;
+        (*sequencia)-> inicio = novo_elemento;
+        novo_elemento->seguinte = NULL;
     }
     else
     {
-        //Insere o novo elemento ao fim da fila
-        sequencia->fim = novo_elemento;
+        // Insere o novo elemento na lista e ajusta os ponteiros
+        (*sequencia)->fim = novo_elemento;
         novo_elemento->seguinte = NULL;
-        ElementoFim->seguinte = novo_elemento;
+        (*sequencia)->fim->seguinte = novo_elemento;
     }
-    sequencia->tamanho++;
+
+    (*sequencia)->tamanho++;
+
     return 0;
 }
 
