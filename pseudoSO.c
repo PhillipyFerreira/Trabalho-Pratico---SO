@@ -76,17 +76,13 @@ int main ()
         printf("PID: %d\n", processo->PID);
     }
 
-<<<<<<< HEAD
-    while(existeProcessos)
-=======
 
 
 
     while(filaTempoReal->tamanho > 0)
->>>>>>> origin/EscalonadorProcessos
     {
         printf("FILA NO TEMPO %d \n\n", clock);
-        exibe(filaTempoReal);
+        //exibe(filaTempoReal);
         while(executaFila(&filaTempoReal, clock, &memoria));
         while(executaFilaUsuario(&filaUsuario, clock, &memoria));
 //        if((vazia(filaTempoReal) && vazia(filaUsuario[FILA_PRIORIDADE1]) && vazia(filaUsuario[FILA_PRIORIDADE2]) & vazia(filaUsuario[FILA_PRIORIDADE3])))
