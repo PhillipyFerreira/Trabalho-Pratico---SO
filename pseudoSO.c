@@ -73,11 +73,8 @@ int main ()
         {
             inserir(&filaUsuario[processo->prioridade], processo);
         }
-        printf("PID: %d\n", processo->PID);
+        //printf("PID: %d\n", processo->PID);
     }
-
-
-
 
     while(filaTempoReal->tamanho > 0)
     {
