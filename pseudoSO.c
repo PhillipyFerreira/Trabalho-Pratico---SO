@@ -16,6 +16,7 @@ int main ()
     FILE *process;
     int clock = 0;
     bool existeProcessos=true;
+    int nextPID = 0;
 
     //Aloca os recursos dinamicamente
     {
@@ -55,10 +56,15 @@ int main ()
         return(1);
     }
 
+    int processes[4000] = {[0 ... 3999] = -1};
+
     while((fscanf(process,"%d, %d, %d, %d, %d, %d, %d, %d\n", &processo->tempoInit, &processo->prioridade,
                     &processo->tempoProcessador, &processo->blocoMemoria, &processo->usoRecurso[IMPRESSORA],
                     &processo->usoRecurso[SCANNER], &processo->usoRecurso[MODEM], &processo->usoRecurso[SATA])) != EOF)
     {
+        processo->PID = nextPID++;
+        processes[processo->PID] = processo->prioridade;
+        
         if( processo->prioridade == FILA_TEMPO_REAL )
         {
             inserir(&filaTempoReal, processo);
@@ -67,6 +73,7 @@ int main ()
         {
             inserir(&filaUsuario[processo->prioridade], processo);
         }
+        printf("PID: %d\n", processo->PID);
     }
 
     while(existeProcessos)
@@ -100,7 +107,7 @@ int main ()
 //    liberaFilas(filaTempoReal, filaUsuario);
 //
 
-    inicializaFileSystem(NULL, "files.txt");
-    
+    inicializaFileSystem(processes, "files.txt");
+
     return 0;
 }

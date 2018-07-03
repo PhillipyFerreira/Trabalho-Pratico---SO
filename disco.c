@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "disco.h"
+#include "filaProcessos.h"
 
-int inicializaFileSystem (tipoProcesso* processes, const char* fsFileName){
+int inicializaFileSystem (int* processes, const char* fsFileName){
 
 	fileSystem *fs = NULL;
 	FILE *fsFile = fopen(fsFileName,"r");
@@ -12,7 +13,7 @@ int inicializaFileSystem (tipoProcesso* processes, const char* fsFileName){
 	//printFS(fs);
 
 	printf("\nSistema de arquivos =>\n");
-	processFSSystemCalls(NULL, &fs, fsFile);
+	processFSSystemCalls(processes, &fs, fsFile);
 
 	printf("\nMapa de ocupação do disco:\n\n");
 	printFS(fs);
@@ -91,42 +92,46 @@ int printFS(fileSystem* fs){
 	return 0;
 }
 
-int processFSSystemCalls(tipoProcesso* processes, fileSystem **fs, FILE* fsFile){
+int processFSSystemCalls(int* processes, fileSystem **fs, FILE* fsFile){
 	int allowed, scId = 0;
 	fsevent e;
 	fsSC *sc = malloc(sizeof(fsSC));
 	while(fscanf(fsFile,"%d, %d, %c, %d\n", &sc->pid, &sc->op, &sc->name, &sc->blocks) != EOF){
 		scId++;
-		switch(sc->op){
-			case CREATE_OP:
-				e = createFile(fs, sc->name, sc->blocks);
-				switch(e.code){
-					case FILE_CREATED:
-						printf("Operação %d => Sucesso\nO processo '%d' criou o arquivo %c. (blocos %d a %d)\n", scId, sc->pid, sc->name, e.seek, (e.seek + e.blocks - 1));
-						break;
-					case OUT_OF_SPACE:
-						printf("Operação %d => Falha\nO processo '%d' não criar o arquivo %c (falta de espaço)\n", scId, sc->pid, sc->name);
-						break;
-					default:
-						printf("NÃO ESPERADO");
-				}
-				break;
-			case DELETE_OP:
-				allowed = deleteAllowed(processes, sc->name);
-				if(allowed == ERROR){
-					printf("OPERAÇÃO VERIFICAR A PERMISSÃO");
-					return -1;
-				}
-				if(allowed == 1){
-					deleteFile(fs, sc->name);
-					printf("Operação %d => Sucesso\nO processo '%d' deletou o arquivo %c.\n", scId, sc->pid, sc->name);
-				}else{
-					printf("Operação %d => Falha\nO processo '%d' não tem permissão pra apagar o arquivo %c.\n", scId, sc->pid, sc->name);
-				}
-				break;
-			default:
-				printf("OPERAÇÃO INVÁLIDA");
-		}
+		if(processes[sc->pid] != -1)
+			switch(sc->op){
+				case CREATE_OP:
+					e = createFile(fs, sc->name, sc->blocks);
+					switch(e.code){
+						case FILE_CREATED:
+							printf("Operação %d => Sucesso\nO processo '%d' criou o arquivo %c. (blocos %d a %d)\n", scId, sc->pid, sc->name, e.seek, (e.seek + e.blocks - 1));
+							break;
+						case OUT_OF_SPACE:
+							printf("Operação %d => Falha\nO processo '%d' não criar o arquivo %c (falta de espaço)\n", scId, sc->pid, sc->name);
+							break;
+						default:
+							printf("NÃO ESPERADO");
+					}
+					break;
+				case DELETE_OP:
+					allowed = deleteAllowed(fs, processes, sc->pid, sc->name);
+					if(allowed == ERROR){
+						printf("OPERAÇÃO VERIFICAR A PERMISSÃO");
+						return -1;
+					}
+					if(allowed == 1){
+						deleteFile(fs, sc->name);
+						printf("Operação %d => Sucesso\nO processo '%d' deletou o arquivo %c.\n", scId, sc->pid, sc->name);
+					}else{
+						printf("Operação %d => Falha\nO processo '%d' não tem permissão pra apagar o arquivo %c.\n", scId, sc->pid, sc->name);
+					}
+					break;
+				default:
+					printf("OPERAÇÃO INVÁLIDA");
+			}
+		else{
+			printf("Operação %d => Falha\nNão existe o processo %d.\n", scId, sc->pid, sc->name);
+		}	
 		printf("\n");
 	}
 	return 0;
@@ -171,8 +176,8 @@ int writeFile(fileSystem **fs, char file, int seek, int blocks){
 	return 0;
 }
 
-int deleteAllowed(tipoProcesso* processes, char file){
-	return 1;
+int deleteAllowed(fileSystem *fs, int* processes, int PID, char file){
+	return processes[PID] == FILA_TEMPO_REAL ? 1 : 0;
 }
 
 int deleteFile(fileSystem **fs, char file){

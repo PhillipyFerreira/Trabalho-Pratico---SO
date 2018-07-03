@@ -11,7 +11,6 @@ void inicializacao (fila ** sequencia)
 /* inserir (adicionar) um elemento na fila */
 int inserir (fila **sequencia, tipoProcesso *processo)
 {
-    static int PID = 1;
     //Aloca recurso para o novo elemento
     elemento *novo_elemento;
     if ((novo_elemento = (elemento *) malloc (sizeof (elemento))) == NULL)
@@ -37,7 +36,7 @@ int inserir (fila **sequencia, tipoProcesso *processo)
     novo_elemento->processo->usoRecurso[SATA]       = processo->usoRecurso[SATA];
     novo_elemento->processo->usoRecurso[MODEM]      = processo->usoRecurso[MODEM];
 
-    novo_elemento->processo->PID = PID;
+    novo_elemento->processo->PID = processo->blocoMemoria;
 
     // Se a lista esta vazia
     if((*sequencia)->fim == NULL)
@@ -56,7 +55,6 @@ int inserir (fila **sequencia, tipoProcesso *processo)
     }
 
     (*sequencia)->tamanho++;
-    PID ++;
     numeroTotalProcessos ++;
 
     return 0;

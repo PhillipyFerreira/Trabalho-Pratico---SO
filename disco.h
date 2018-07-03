@@ -4,16 +4,18 @@
 
 #define ERROR        -1
 
-typedef struct fileSystem{
-	int blocks;
-	char *disc;
-} fileSystem;
-
 typedef struct file{
 	char name;
 	int seek;
 	int blocks;
+	int ownerPID;
 } file;
+
+typedef struct fileSystem{
+	int blocks;
+	char *disc;
+	file *files;
+} fileSystem;
 
 typedef struct fsSC{
 	int pid;
@@ -41,10 +43,10 @@ int writeFS(fileSystem**, FILE*);
 #define FILE_CREATED 1
 #define OUT_OF_SPACE -10
 
-int processFSSystemCalls(tipoProcesso*, fileSystem**, FILE*);
-int deleteAllowed(tipoProcesso*, char);
+int processFSSystemCalls(int*, fileSystem**, FILE*);
+int deleteAllowed(fileSystem*, int*, int, char);
 fsevent createFile(fileSystem**, char, int);
 int writeFile(fileSystem**, char, int, int);
 int deleteFile(fileSystem**, char);
 
-int inicializaFileSystem (tipoProcesso*, const char*);
+int inicializaFileSystem (int*, const char*);
