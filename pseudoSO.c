@@ -81,7 +81,7 @@ int main ()
 
     while(filaTempoReal->tamanho > 0)
     {
-        printf("FILA NO TEMPO %d \n\n", clock);
+        //printf("FILA NO TEMPO %d \n\n", clock);
         //exibe(filaTempoReal);
         while(executaFila(&filaTempoReal, clock, &memoria));
         while(executaFilaUsuario(&filaUsuario, clock, &memoria));
