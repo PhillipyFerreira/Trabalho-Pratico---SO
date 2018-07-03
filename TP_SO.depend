@@ -43,3 +43,38 @@
 1530572027 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\processo.c
 	"processo.h"
 
+1530579243 source:/desenv/workspaces/unb/c/Trabalho-Pratico---SO/filaProcessos.c
+	"filaProcessos.h"
+
+1530581881 /desenv/workspaces/unb/c/Trabalho-Pratico---SO/filaProcessos.h
+	"funcaoFila.h"
+
+1530581881 /desenv/workspaces/unb/c/Trabalho-Pratico---SO/funcaoFila.h
+	"processo.h"
+
+1530579243 /desenv/workspaces/unb/c/Trabalho-Pratico---SO/processo.h
+	"recursos.h"
+
+1530579243 /desenv/workspaces/unb/c/Trabalho-Pratico---SO/recursos.h
+	"memoria.h"
+
+1530579243 /desenv/workspaces/unb/c/Trabalho-Pratico---SO/memoria.h
+	<stdio.h>
+	<stdlib.h>
+
+1530579243 source:/desenv/workspaces/unb/c/Trabalho-Pratico---SO/memoria.c
+	"memoria.h"
+
+1530579243 source:/desenv/workspaces/unb/c/Trabalho-Pratico---SO/processo.c
+	"processo.h"
+
+1530579243 source:/desenv/workspaces/unb/c/Trabalho-Pratico---SO/recursos.c
+	"recursos.h"
+
+1530581881 source:/desenv/workspaces/unb/c/Trabalho-Pratico---SO/funcaoFila.c
+	"funcaoFila.h"
+
+1530581881 source:/desenv/workspaces/unb/c/Trabalho-Pratico---SO/pseudoSO.c
+	"filaProcessos.h"
+	"memoria.h"
+

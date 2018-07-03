@@ -5,6 +5,7 @@ int main ()
 {
     //Declaração de variáveis
 //    InicializaFilaProcessos();
+    fila *f;
     fila *filaTempoReal;
     fila **filaUsuario;
     memoriaPrincipal *memoria;
@@ -54,40 +55,15 @@ int main ()
                     &processo->tempoProcessador, &processo->blocoMemoria, &processo->usoRecurso[IMPRESSORA],
                     &processo->usoRecurso[SCANNER], &processo->usoRecurso[MODEM], &processo->usoRecurso[SATA])) != EOF)
     {
-        switch(processo->prioridade)
-        {
-           case FILA_TEMPO_REAL:
-               inserir(&filaTempoReal, processo);
-               printf("%d, %d, %d, %d, %d, %d, %d, %d\n", filaTempoReal->fim->processo->tempoInit, filaTempoReal->fim->processo->prioridade,
-                   filaTempoReal->fim->processo->tempoProcessador, filaTempoReal->fim->processo->blocoMemoria, filaTempoReal->fim->processo->usoRecurso[IMPRESSORA],
-                   filaTempoReal->fim->processo->usoRecurso[SCANNER], filaTempoReal->fim->processo->usoRecurso[MODEM], filaTempoReal->fim->processo->usoRecurso[SATA]);
-           break;
+        if( processo->prioridade == FILA_TEMPO_REAL )
+            f = filaTempoReal;
+        else
+            f = filaUsuario[processo->prioridade];
 
-           case FILA_PRIORIDADE1:
-               inserir(&filaUsuario[FILA_PRIORIDADE1], processo);
-               printf("%d, %d, %d, %d, %d, %d, %d, %d\n", filaUsuario[FILA_PRIORIDADE1]->fim->processo->tempoInit, filaUsuario[FILA_PRIORIDADE1]->fim->processo->prioridade,
-                   filaUsuario[FILA_PRIORIDADE1]->fim->processo->tempoProcessador, filaUsuario[FILA_PRIORIDADE1]->fim->processo->blocoMemoria, filaUsuario[FILA_PRIORIDADE1]->fim->processo->usoRecurso[IMPRESSORA],
-                   filaUsuario[FILA_PRIORIDADE1]->fim->processo->usoRecurso[SCANNER], filaUsuario[FILA_PRIORIDADE1]->fim->processo->usoRecurso[MODEM], filaUsuario[FILA_PRIORIDADE1]->fim->processo->usoRecurso[SATA]);
-           break;
-
-           case FILA_PRIORIDADE2:
-               inserir(&filaUsuario[FILA_PRIORIDADE2], processo);
-               printf("%d, %d, %d, %d, %d, %d, %d, %d\n", filaUsuario[FILA_PRIORIDADE2]->fim->processo->tempoInit, filaUsuario[FILA_PRIORIDADE2]->fim->processo->prioridade,
-                   filaUsuario[FILA_PRIORIDADE2]->fim->processo->tempoProcessador, filaUsuario[FILA_PRIORIDADE2]->fim->processo->blocoMemoria, filaUsuario[FILA_PRIORIDADE2]->fim->processo->usoRecurso[IMPRESSORA],
-                   filaUsuario[FILA_PRIORIDADE2]->fim->processo->usoRecurso[SCANNER], filaUsuario[FILA_PRIORIDADE2]->fim->processo->usoRecurso[MODEM], filaUsuario[FILA_PRIORIDADE2]->fim->processo->usoRecurso[SATA]);
-           break;
-
-           case FILA_PRIORIDADE3:
-               inserir(&filaUsuario[FILA_PRIORIDADE3], processo);
-               printf("%d, %d, %d, %d, %d, %d, %d, %d\n", filaUsuario[FILA_PRIORIDADE3]->fim->processo->tempoInit, filaUsuario[FILA_PRIORIDADE3]->fim->processo->prioridade,
-                   filaUsuario[FILA_PRIORIDADE3]->fim->processo->tempoProcessador, filaUsuario[FILA_PRIORIDADE3]->fim->processo->blocoMemoria, filaUsuario[FILA_PRIORIDADE3]->fim->processo->usoRecurso[IMPRESSORA],
-                   filaUsuario[FILA_PRIORIDADE3]->fim->processo->usoRecurso[SCANNER], filaUsuario[FILA_PRIORIDADE3]->fim->processo->usoRecurso[MODEM], filaUsuario[FILA_PRIORIDADE3]->fim->processo->usoRecurso[SATA]);
-           break;
-
-           default:
-               printf("PRIORIDADE NÃO EXISTENTE\n");
-            break;
-        }
+        inserir(&f, processo);
+        printf("tempoInit: %d\nprioridade: %d\ntempoProcessador: %d\nblocoMemoria: %d\nImp: %d\nscn: %d\nmod: %d\nsata: %d\n\n", processo->tempoInit, processo->prioridade,
+           processo->tempoProcessador, processo->blocoMemoria, processo->usoRecurso[IMPRESSORA],
+           processo->usoRecurso[SCANNER], processo->usoRecurso[MODEM], processo->usoRecurso[SATA]);
     }
 
 //    while( (fscanf(process,"%d, %d, %d, %d, %d, %d, %d, %d\n", processo->tempoInit, processo->prioridade,

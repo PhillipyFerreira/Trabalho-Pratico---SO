@@ -1,1 +1,4 @@
-bin/, obj/
+bin/
+obj/
+main
+TP_SO.depend
