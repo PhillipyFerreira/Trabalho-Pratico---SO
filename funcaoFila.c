@@ -80,9 +80,13 @@ int remover (fila ** sequencia)
     (*sequencia)-> inicio = (*sequencia)->inicio->seguinte;
     //Libera a memoria do elemento removido
     free (remov_elemento);
-
     //Diminui o tamanho da fila
     (*sequencia)->tamanho--;
+    if ((*sequencia)->tamanho == 0)
+    {
+        (*sequencia)->inicio=NULL;
+        (*sequencia)->fim=NULL;
+    }
     //Diminui a quantidade total de processos
     numeroTotalProcessos--;
     return 0;
@@ -108,6 +112,24 @@ void exibe(fila *sequencia)
                         proximo->processo->usoRecurso[SATA], proximo->processo->PID);
         proximo = proximo->seguinte;
     }
+}
+
+// Remove o primeiro elemento da sequencia1 e inclui na sequencia2
+int alteraFila(fila ** sequencia1, fila ** sequencia2)
+{
+    elemento *elementoTemp;
+    //Verifica se a fila esta fazia
+    if ((elementoTemp = (elemento *) malloc (sizeof (elemento))) == NULL)
+    {
+        printf("ERRO NA EM CRIAR NOVO ELEMENTO");
+        return -1;
+    }
+
+    elementoTemp = (*sequencia1)->inicio;
+    //Remove o primeiro elemento da lista
+    remover(sequencia1);
+    inserir(sequencia2, elementoTemp);
+    return 0;
 }
 
 // Verifica se a fila esta vazia

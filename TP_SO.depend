@@ -6,7 +6,7 @@
 	<stdio.h>
 	<stdlib.h>
 
-1530646612 d:\filepy\estudos\unb\2018.1\iso\tp_so\funcaofila.h
+1530654280 d:\filepy\estudos\unb\2018.1\iso\tp_so\funcaofila.h
 	"processo.h"
 
 1530644821 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\filaprocessos.c
@@ -17,13 +17,13 @@
 
 1530495345 d:\filepy\estudos\unb\2018.1\iso\tp_so\bibliotecas.h
 
-1530651520 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\funcaofila.c
+1530656019 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\funcaofila.c
 	"funcaoFila.h"
 
 1530644099 d:\filepy\estudos\unb\2018.1\iso\tp_so\processo.h
 	"recursos.h"
 
-1530651290 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\pseudoso.c
+1530656338 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\pseudoso.c
 	"filaProcessos.h"
 	"escalonaProcessos.h"
 	"memoria.h"
@@ -44,9 +44,9 @@
 1530644429 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\processo.c
 	"processo.h"
 
-1530650256 d:\filepy\estudos\unb\2018.1\iso\tp_so\escalonaprocessos.h
+1530656118 d:\filepy\estudos\unb\2018.1\iso\tp_so\escalonaprocessos.h
 	"filaProcessos.h"
 
-1530652255 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\escalonaprocessos.c
+1530656285 source:d:\filepy\estudos\unb\2018.1\iso\tp_so\escalonaprocessos.c
 	"escalonaProcessos.h"
 

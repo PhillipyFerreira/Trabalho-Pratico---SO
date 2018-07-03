@@ -31,6 +31,10 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="escalonaProcessos.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="escalonaProcessos.h" />
 		<Unit filename="filaProcessos.c">
 			<Option compilerVar="CC" />
 		</Unit>

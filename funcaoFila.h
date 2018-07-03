@@ -25,6 +25,9 @@ int inserir (fila **sequencia, tipoProcesso *processo);
 /* remover (remover) um elemento de la fila */
 int remover (fila ** sequencia);
 
+/* remover (remover) um elemento de la fila */
+int alteraFila(fila ** sequencia1, fila ** sequencia2);
+
 /* exibição da fila */
 void exibe(fila *sequencia);
 

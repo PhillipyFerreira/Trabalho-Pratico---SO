@@ -12,9 +12,8 @@ int main ()
     recursosDoSistema *dispositivo;
     tipoProcesso *processo;
     FILE *process;
-    int clock = 0;
+    int clock=0;
     bool existeProcessos=true;
-
     //Aloca os recursos dinamicamente
     {
     if (alocaFilas(&filaTempoReal, &filaUsuario) == ERROR)
@@ -70,19 +69,17 @@ int main ()
 
 
 
-    while(existeProcessos)
+    while(filaTempoReal->tamanho > 0)
     {
         printf("FILA NO TEMPO %d \n\n", clock);
         exibe(filaTempoReal);
-        existeProcessos = executaFila(&filaTempoReal, clock, &memoria);
-//        while(executaFila(&filaTempoReal, clock, &memoria));
-//        while(executaFilaUsuario(&filaUsuario, clock, &memoria));
+        while(executaFila(&filaTempoReal, clock, &memoria));
+        while(executaFilaUsuario(&filaUsuario, clock, &memoria));
 //        if((vazia(filaTempoReal) && vazia(filaUsuario[FILA_PRIORIDADE1]) && vazia(filaUsuario[FILA_PRIORIDADE2]) & vazia(filaUsuario[FILA_PRIORIDADE3])))
 //        {
 //            existeProcessos=false;
 //        }
         clock ++;
-        system("pause");
     }
     {
 //	printf("dispatcher => \n");
