@@ -69,8 +69,6 @@ int main ()
         }
     }
 
-    inicializaFileSystem(NULL, "files.txt");
-
     while(existeProcessos)
     {
         printf("FILA NO TEMPO %d \n\n", clock);
@@ -101,5 +99,8 @@ int main ()
 //  IMPLEMENTAR FREE() DOS MALLOCs,m
 //    liberaFilas(filaTempoReal, filaUsuario);
 //
+
+    inicializaFileSystem(NULL, "files.txt");
+    
     return 0;
 }
